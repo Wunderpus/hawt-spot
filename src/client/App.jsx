@@ -12,6 +12,7 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div>
         <h1>Welcome to Hawt-Spot!!!</h1>
