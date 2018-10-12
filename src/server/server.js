@@ -13,14 +13,12 @@ require('dotenv').config();
 
 const client = new Client(process.env.PSQL_URL);
 
-client.connect((err, db) => {
+client.connect((err) => {
   if (err) {
     console.log(err);
   } else {
     console.log('connected to db');
   }
-  db.query()
-
 });
 
 // Configuration
@@ -44,3 +42,5 @@ app.listen(PORT, (err) => {
   if (err) console.error('Server Error - ', err);
   return console.log(`Server Listening on Port ${PORT}`);
 });
+
+module.exports.client = client;
