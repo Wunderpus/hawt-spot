@@ -8,6 +8,10 @@ const users = require('./routes/users');
 
 const app = express();
 
+// Configuration
+// Access dotenv for PORT
+require('dotenv').config();
+
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,7 +22,7 @@ app.use('/users', users);
 // Serve bundled index.html at root
 app.use(express.static(path.resolve(__dirname, '../../dist/')));
 
-// When deployed use the first part || localhost:3000
+// When deployed use the first PORT || localhost:3000
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, (err) => {
