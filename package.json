@@ -1,0 +1,40 @@
+{
+  "name": "hawt-spot",
+  "version": "0.2.0",
+  "description": "React/Redux Music Recommendation Service",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
+    "server": "nodemon src/server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vartanovs/hawt-spot.git"
+  },
+  "author": "Erik Fisher <efishr4@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vartanovs/hawt-spot/issues"
+  },
+  "homepage": "https://github.com/vartanovs/hawt-spot#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^1.18.4",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  }
+}
