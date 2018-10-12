@@ -2,11 +2,26 @@
 
 const express = require('express');
 const path = require('path');
+
 const bodyParser = require('body-parser');
 
 const users = require('./routes/users');
 
 const app = express();
+const { Client } = require('pg');
+require('dotenv').config();
+
+const client = new Client(process.env.PSQL_URL);
+
+client.connect((err, db) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('connected to db');
+  }
+  db.query()
+
+});
 
 // Configuration
 // Access dotenv for PORT
