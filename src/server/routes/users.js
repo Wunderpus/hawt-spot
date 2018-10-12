@@ -2,6 +2,8 @@ const express = require('express');
 
 const passwordController = require('../controllers/passwordController.js');
 
+const userController = require('../controllers/userController.js');
+
 const router = express.Router();
 
 // Load User Model
@@ -19,6 +21,7 @@ router.get('/test', (req, res) => {
 // @access    Public
 router.post('/register',
   passwordController.hashPassword,
+  userController.addUser,
   (req, res) => res.end());
 
 // @route     POST api/users/login
