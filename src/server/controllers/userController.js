@@ -17,9 +17,9 @@ module.exports = {
       token,
     ];
     //save the user information into psql table by using query and query array
-    client.query(queryText, queryValues, (err, res) => {
-      if (err) {
-        return res.status(500).json({ message: 'Error: Could Not Save Information', error: err });
+    client.query(queryText, queryValues, (queryErr, queryResponse) => {
+      if (queryErr) {
+        return res.status(500).json({ message: 'Error: Could Not Save Information', error: queryErr });
       }
       // Todo - add variable to local storage
       return next();
@@ -37,12 +37,10 @@ module.exports = {
     // Issue query to delete user from array
     client.query(deleteQuery, deleteArray)
       .then((data) => {
-        console.log(data)
         res.locals.data = data;
         if (!data.rowCount) return res.status(500).json({ message: 'Error: Could Not Find User To Delete' });
         return next();
       })
       .catch(delErr => res.status(500).json({ message: 'Error: Could Not Delete User', error: delErr }));
   },
-
 };
