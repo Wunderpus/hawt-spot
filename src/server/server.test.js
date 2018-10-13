@@ -1,6 +1,6 @@
 const request = require('supertest');
 
-const client = require('./db.js');
+const db = require('./db.js');
 const server = require('./server.js');
 
 // Declare a test user for registration testing
@@ -17,6 +17,16 @@ const testUser = {
 const deleteUser = {
   email: 'jane@doe.com',
 };
+
+afterAll(async () => {
+  server.close();
+  await db.end();
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, 0);
+  });
+});
 
 describe('Server Test - GET /', () => {
   test('It should respond to GET method', (done) => {
@@ -77,6 +87,16 @@ describe('Server Test - POST /users/register', () => {
         done();
       });
   });
+  test('If the same user is sent twice - response should have Status 500', (done) => {
+    request(server).post('/users/register')
+      .set('Accept', 'application/json')
+      .send(testUser)
+      .then((response) => {
+        expect(response.statusCode).toBe(500);
+        expect(response.body.error).toBeDefined();
+        done();
+      });
+  });
 });
 
 describe('Server Test - DELETE /users/', () => {
@@ -101,13 +121,8 @@ describe('Server Test - DELETE /users/', () => {
       .send(deleteUser)
       .then((response) => {
         expect(response.statusCode).toBe(500);
+        db.end();
         done();
       });
   });
 });
-
-
-// Close Express Server and Postgres DB
-// TODO: Close connection to Postgres DB
-// client.end();
-// server.close();
