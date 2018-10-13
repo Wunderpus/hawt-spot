@@ -22,6 +22,12 @@ class App extends Component {
     this.setState({ ...this.state, loggedInUser: firstName })
   }
 
+  
+
+  searchUser() {
+
+  }
+
   render() {
     let renderComponent = <Register updateLoggedInUser={this.updateLoggedInUser} successfulLogin={this.successfulLogin} />;
     if (this.state.isLoggedIn) {
