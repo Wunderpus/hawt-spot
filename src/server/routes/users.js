@@ -22,7 +22,7 @@ router.get('/test', (req, res) => {
 router.post('/register',
   passwordController.hashPassword,
   userController.addUser,
-  (req, res) => res.end());
+  (req, res) => res.status(200).json({}));
 
 // @route     POST api/users/login
 // @desc      Login user
@@ -30,6 +30,10 @@ router.post('/register',
 router.post('/login',
   // userController.getUser,
   passwordController.comparePassword,
-  (req, res) => res.end());
+  (req, res) => res.status(200).json({}));
+
+router.delete('/',
+  userController.deleteUser,
+  (req, res) => res.status(200).json(res.locals));
 
 module.exports = router;
