@@ -12,8 +12,10 @@ const app = express();
 require('dotenv').config();
 
 // Body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
+//ADD PASSPORT HERE
 app.use(bodyParser.json());
+
 
 // Use route for /users
 app.use('/users', users);

@@ -31,9 +31,11 @@ class Register extends Component {
       password: this.state.password,
       token: 'test',
     };
+    console.log("newuser ", newUser)
     fetch('/users/register', {
       method: 'POST',
-      header: { 'Content-Type': 'application/json; charset=utf-8' },
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(newUser),
     })
       .then(res => res.json())
