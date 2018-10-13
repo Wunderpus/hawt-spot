@@ -5,6 +5,9 @@ const path = require('path');
 
 const users = require('./routes/users');
 
+const songsController = require('./controllers/songsController.js');
+
+
 const app = express();
 
 // Configuration
@@ -16,6 +19,11 @@ require('dotenv').config();
 //ADD PASSPORT HERE
 app.use(bodyParser.json());
 
+app.post('/get-songs',
+  songsController.getToken,
+  songsController.getSongs,
+  songsController.parseSongs,
+  (req, res) => res.status(200).json({}));
 
 // Use route for /users
 app.use('/users', users);
