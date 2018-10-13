@@ -1,4 +1,4 @@
-const client = require('../server.js')
+const client = require('../db');
 
 module.exports = {
   addUser: (req, res, next) => {
@@ -17,13 +17,32 @@ module.exports = {
       token,
     ];
     //save the user information into psql table by using query and query array
-    client.client.query(queryText, queryValues, (err, res) => {
+    client.query(queryText, queryValues, (err, res) => {
       if (err) {
-        console.error('Error: Could Not Encrypt Password: ', err);
-        return res.status(500).json({ message: 'Error: Could Not Save Information' });
+        return res.status(500).json({ message: 'Error: Could Not Save Information', error: err });
       }
       // Todo - add variable to local storage
       return next();
     });
   },
+
+  deleteUser: (req, res, next) => {
+    // Pull out email from req.body
+    const { email } = req.body;
+
+    // Initialize deletion query text and array
+    const deleteQuery = 'DELETE FROM users WHERE "email"=$1';
+    const deleteArray = [email];
+
+    // Issue query to delete user from array
+    client.query(deleteQuery, deleteArray)
+      .then((data) => {
+        console.log(data)
+        res.locals.data = data;
+        if (!data.rowCount) return res.status(500).json({ message: 'Error: Could Not Find User To Delete' });
+        return next();
+      })
+      .catch(delErr => res.status(500).json({ message: 'Error: Could Not Delete User', error: delErr }));
+  },
+
 };

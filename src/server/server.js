@@ -1,25 +1,11 @@
 // Main Entry Point File
-
+const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
-
-const bodyParser = require('body-parser');
 
 const users = require('./routes/users');
 
 const app = express();
-const { Client } = require('pg');
-require('dotenv').config();
-
-const client = new Client(process.env.PSQL_URL);
-
-client.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('connected to db');
-  }
-});
 
 // Configuration
 // Access dotenv for PORT
@@ -38,9 +24,7 @@ app.use(express.static(path.resolve(__dirname, '../../dist/')));
 // When deployed use the first PORT || localhost:3000
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, (err) => {
+module.exports = app.listen(PORT, (err) => {
   if (err) console.error('Server Error - ', err);
   return console.log(`Server Listening on Port ${PORT}`);
 });
-
-module.exports.client = client;
