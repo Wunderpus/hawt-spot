@@ -16,9 +16,12 @@ router.get('/test', (req, res) => {
   });
 });
 
-router.get('/findAccount',
+router.post('/findAccount',
   userController.findUser,
-  (req, res) => res.send(res.locals.userVerification));
+  (req, res) => {
+    console.log("locals in user ", res.locals.userVerification);
+    res.json({ userVerification: res.locals.userVerification });
+  });
 
 // @route     POST api/users/register
 // @desc      Register User

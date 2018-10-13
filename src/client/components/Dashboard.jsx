@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   return (
-    <h1>DASHBOARD</h1>
+    <h1>hello {props.loggedInUser} </h1>
   );
 };
 
