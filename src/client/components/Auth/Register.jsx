@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dashboard from '../Dashboard.jsx';
+import Dashboard from '../Dash/Dashboard.jsx';
 
 class Register extends Component {
   constructor(props) {

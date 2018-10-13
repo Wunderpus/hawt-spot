@@ -1,0 +1,97 @@
+body {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+  
+  display: grid;
+  grid-template-rows: 72px 1fr;
+}
+
+header {
+  background: #000063;
+  box-shadow: 0 2px 4px 0 2px 4px rgba(0,0,0,.5);
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: bold;
+  height: 72px;
+  line-height: 72px;
+  text-align: center;
+  width: 100%;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.friends-header-container {
+  background: #311b92;
+  height: 64px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+.friends-header {
+  color: #FFFFFF;
+  font-size: 20px;
+  height: 24px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.friend-search-field {
+  border: 0px;
+  border-radius: 2px;
+  height: 22px;
+  width: 200px;
+}
+
+.friend-search-submit {
+  background: #ff6f00;
+  border: 0px;
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+  height: 24px;
+  border-radius: 3px;
+}
+
+.songs-header-container {
+  background: #311b92;
+  height: 64px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+.songs-header {
+  color: #FFFFFF;
+  font-size: 20px;
+  height: 24px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.song-search-field {
+  border: 0px;
+  border-radius: 2px;
+  height: 22px;
+  width: 200px;
+}
+
+.song-search-submit {
+  background: #ff6f00;
+  border: 0px;
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+  height: 24px;
+  border-radius: 3px;
+}
