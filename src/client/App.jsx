@@ -66,15 +66,8 @@ class App extends Component {
     this.setState({ ...this.state, loggedInUser: firstName })
   }
 
-<<<<<<< HEAD
-  
-
-  searchUser() {
-
-=======
   updateSongField(event) {
     this.setState({ songField: event.target.value });
->>>>>>> master
   }
 
   render() {
