@@ -8,18 +8,24 @@ class App extends Component {
     super();
     this.state = {
       isLoggedIn: false,
+      loggedInUser: '',
     };
-    this.successfullLogin = this.successfullLogin.bind(this);
+    this.successfulLogin = this.successfulLogin.bind(this);
+    this.updateLoggedInUser = this.updateLoggedInUser.bind(this);
   }
 
-  successfullLogin() {
+  successfulLogin() {
     this.setState({ ...this.state, isLoggedIn: true });
   }
 
+  updateLoggedInUser(firstName) {
+    this.setState({ ...this.state, loggedInUser: firstName })
+  }
+
   render() {
-    let renderComponent = <Register successfullLogin={this.successfullLogin}/>;
+    let renderComponent = <Register updateLoggedInUser={this.updateLoggedInUser} successfulLogin={this.successfulLogin} />;
     if (this.state.isLoggedIn) {
-      renderComponent = <Dashboard />;
+      renderComponent = <Dashboard loggedInUser={this.state.loggedInUser} />;
     }
     return (
       <div>
