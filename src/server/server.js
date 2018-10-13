@@ -6,21 +6,6 @@ const path = require('path');
 const users = require('./routes/users');
 
 const app = express();
-<<<<<<< HEAD
-const { Client } = require('pg');
-require('dotenv').config();
-
-const client = new Client("postgres://olmqtbye:jeUcjomwRCIJ0FeolH1-ZxiisI0XYibQ@baasu.db.elephantsql.com:5432/olmqtbye");
-
-client.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('connected to db');
-  }
-});
-=======
->>>>>>> master
 
 // Configuration
 // Access dotenv for PORT
