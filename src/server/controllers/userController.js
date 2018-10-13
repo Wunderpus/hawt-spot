@@ -17,7 +17,7 @@ module.exports = {
       token,
     ];
     //save the user information into psql table by using query and query array
-    client.client.query(queryText, queryValues, (err, res) => {
+    client.client.query(queryText, queryValues, (err) => {
       if (err) {
         console.error('Error: Could Not Encrypt Password: ', err);
         return res.status(500).json({ message: 'Error: Could Not Save Information' });
