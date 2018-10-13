@@ -5,6 +5,7 @@ const SALT = 12;
 module.exports = {
   /** Encrypt user password using bcrypt prior to storing user account information in database */
   hashPassword: (req, res, next) => {
+    console.log("req body ", req.body)
     // Retrieve user input clear password from req.body
     const { password } = req.body;
     // Generate salt to hash password 

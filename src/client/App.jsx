@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
+//import Login from './components/Auth/Login';
+import Register from './components/Auth/Register.jsx';
+import Dashboard from './components/Dashboard.jsx'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  constructor() {
+    super();
+    this.state = {
+      isLoggedIn: false,
+    };
+    this.successfullLogin = this.successfullLogin.bind(this);
+  }
+
+  successfullLogin() {
+    this.setState({ ...this.state, isLoggedIn: true });
   }
 
   render() {
-
+    let renderComponent = <Register successfullLogin={this.successfullLogin}/>;
+    if (this.state.isLoggedIn) {
+      renderComponent = <Dashboard />;
+    }
     return (
       <div>
-        <h1>Welcome to Hawt-Spot!!!</h1>
+        {renderComponent}
       </div>
     );
   }

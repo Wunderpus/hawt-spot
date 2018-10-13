@@ -16,6 +16,7 @@ module.exports = {
       hashPass,
       token,
     ];
+    console.log(queryValues)
     //save the user information into psql table by using query and query array
     client.query(queryText, queryValues, (queryErr, queryResponse) => {
       if (queryErr) {
