@@ -20,14 +20,12 @@ class Register extends Component {
 
   onChange(e) {
     const newState = { ...this.state };
-    console.log(e.target.value);
     newState[e.target.name] = e.target.value;
     this.setState(newState);
   }
 
   onChangeUserName(e) {
     const newState = { ...this.state };
-    console.log(e.target.value);
     newState[e.target.name] = e.target.value;
     this.props.updateLoggedInUser(e.target.value);
     this.setState(newState);
@@ -58,14 +56,12 @@ class Register extends Component {
       accountEmail: this.state.accountEmail,
       accountPassword: this.state.accountPassword,
     };
-    console.log("login obj ", logIn)
     fetch('/users/findAccount', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(logIn),
     })
       .then((res) => {
-        console.log("res ", res)
         return res.json();
       })
       .then((verification) => {
@@ -85,7 +81,7 @@ class Register extends Component {
         <h4>Log in</h4>
         <form onSubmit={this.submitLogIn}>
           <input type="text" name="accountEmail" placeholder="Email" value={this.state.accountEmail} onChange={this.onChangeUserName} />
-          <input type="text" name="accountPassword" placeholder="Password" value={this.state.accountPassword} onChange={this.onChange} />
+          <input type="password" name="accountPassword" placeholder="Password" value={this.state.accountPassword} onChange={this.onChange} />
           <input type="submit" />
         </form>
         <h4>Signup</h4>
@@ -93,7 +89,7 @@ class Register extends Component {
           <input type="text" name="firstName" placeholder="First Name" value={this.state.firstName} onChange={this.onChange} />
           <input type="text" name="lastName" placeholder="Last Name" value={this.state.lastName} onChange={this.onChange} />
           <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.onChangeUserName} />
-          <input type="text" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange} />
+          <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange} />
           <input type="submit" />
         </form>
       </div>

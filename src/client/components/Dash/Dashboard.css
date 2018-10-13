@@ -95,3 +95,42 @@ main {
   height: 24px;
   border-radius: 3px;
 }
+
+.song-query-container {
+  background: #aab6fe;
+  height: 80px;
+  border: 2px solid #484848;
+
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.song-query-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.song-query-button {
+  background: #ff6f00;
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+}
+
+.song-play-button {
+  background: #ff6f00;
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+}
+
+.song-query-detail {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+}

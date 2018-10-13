@@ -48,24 +48,17 @@ module.exports = {
 
   findUser: (req, res, next) => {
     const { accountEmail, accountPassword} = req.body;
-    console.log("body ", req.body)
     const queryText = `SELECT * FROM users WHERE "email"=$1;`;
     const queryArray = [accountEmail];
     client.query(queryText, queryArray, (queryErr, queryResponse) => {
       if (queryErr) {
         return res.status(500).json({ message: 'Error: Problem Verifying User ', error: queryErr });
       }
-      console.log("query response ", queryResponse)
-      console.log("account pw ", accountPassword)
-      console.log("query response hash ", queryResponse.rows[0].hash_pass);
-      console.log("compare sync ", bcrypt.compareSync(accountPassword, queryResponse.rows[0].hash_pass))
       if (bcrypt.compareSync(accountPassword, queryResponse.rows[0].hash_pass)) {
         res.locals.userVerification = true;
-        console.log("locals true", res.locals.userVerification)
         return next();
       }
       res.locals.userVerification = false;
-      console.log("locals false", res.locals.userVerification)
       return next();
     });
   },
