@@ -54,16 +54,12 @@ module.exports = {
       if (queryErr) {
         return res.status(500).json({ message: 'Error: Problem Verifying User ', error: queryErr });
       }
-<<<<<<< HEAD
     
-=======
->>>>>>> master
       if (bcrypt.compareSync(accountPassword, queryResponse.rows[0].hash_pass)) {
         res.locals.userVerification = true;
         return next();
       }
       res.locals.userVerification = false;
-<<<<<<< HEAD
       return next();
     });
   },
@@ -101,8 +97,6 @@ module.exports = {
         userSavedSongs.push(queryResponse.rows[i]);
       }
       res.locals.userSongs = userSavedSongs;
-=======
->>>>>>> master
       return next();
     });
   },
