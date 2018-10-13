@@ -6,7 +6,6 @@ import FriendsComponent from './FriendsComponent.jsx';
 
 const Dashboard = (props) => {
   const { saveSong, searchSongs, songField, songQueryResults, updateSongField } = props;
-  console.log(saveSong);
   return (
     <div>
       <header>HAWT-SPOT DASHBOARD</header>
