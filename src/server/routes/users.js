@@ -16,6 +16,10 @@ router.get('/test', (req, res) => {
   });
 });
 
+router.get('/findAccount',
+  userController.findUser,
+  (req, res) => res.send(res.locals.userVerification));
+
 // @route     POST api/users/register
 // @desc      Register User
 // @access    Public

@@ -9,15 +9,15 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
     };
-    this.successfullLogin = this.successfullLogin.bind(this);
+    this.successfulLogin = this.successfulLogin.bind(this);
   }
 
-  successfullLogin() {
+  successfulLogin() {
     this.setState({ ...this.state, isLoggedIn: true });
   }
 
   render() {
-    let renderComponent = <Register successfullLogin={this.successfullLogin}/>;
+    let renderComponent = <Register successfulLogin={this.successfulLogin} />;
     if (this.state.isLoggedIn) {
       renderComponent = <Dashboard />;
     }
