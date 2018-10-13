@@ -46,7 +46,7 @@ module.exports = {
       .catch(delErr => res.status(500).json({ message: 'Error: Could Not Delete User', error: delErr }));
   },
 
-  findUser: (req, res, next) => {
+  verifyUser: (req, res, next) => {
     const { accountEmail, accountPassword} = req.body;
     const queryText = `SELECT * FROM users WHERE "email"=$1;`;
     const queryArray = [accountEmail];
@@ -54,11 +54,49 @@ module.exports = {
       if (queryErr) {
         return res.status(500).json({ message: 'Error: Problem Verifying User ', error: queryErr });
       }
+    
       if (bcrypt.compareSync(accountPassword, queryResponse.rows[0].hash_pass)) {
         res.locals.userVerification = true;
         return next();
       }
       res.locals.userVerification = false;
+      return next();
+    });
+  },
+
+  saveSong: (req, res, next) => {
+    const { title, artist, album, url, userId } = req.body;
+    console.log("body ", req.body)
+    const queryText = `INSERT INTO user_saved_songs ("title", "artist", "album", "url", "user") VALUES ($1, $2, $3, $4, $5);`;
+    const queryValues = [
+      title,
+      artist,
+      album,
+      url,
+      userId,
+    ];
+    client.query(queryText, queryValues, (queryErr, queryResponse) => {
+      if (queryErr) {
+        return res.status(500).json({ message: 'Error: Problem Saving Song ', error: queryErr });
+      }
+      return next();
+    });
+  },
+
+  findUserSongs: (req, res, next) => {
+    const { username } = req.body;
+    const queryText = `SELECT * FROM user_saved_songs WHERE "user"=$1;`;
+    const queryValue = [username];
+    client.query(queryText, queryValue, (queryErr, queryResponse) => {
+      if (queryErr) {
+        return res.status(500).json({ message: 'Error: Problem Verifying User ', error: queryErr });
+      }
+      const userSavedSongs = [];
+      for (let i = 0; i < queryResponse.rows.length; i += 1) {
+        console.log(queryResponse.rows[i]);
+        userSavedSongs.push(queryResponse.rows[i]);
+      }
+      res.locals.userSongs = userSavedSongs;
       return next();
     });
   },

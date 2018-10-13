@@ -17,11 +17,24 @@ router.get('/test', (req, res) => {
 });
 
 router.post('/findAccount',
-  userController.findUser,
+  userController.verifyUser,
   (req, res) => {
-    console.log("locals in user ", res.locals.userVerification);
     res.json({ userVerification: res.locals.userVerification });
   });
+
+router.post('/save-song',
+  userController.saveSong,
+  (req, res) => {
+    res.json({ message: 'save successful' });
+  });
+
+router.post('/find-saved-songs',
+  userController.findUserSongs,
+  (req, res) => {
+    console.log(res.locals.userSongs);
+    res.json(res.locals.userSongs);
+  });
+
 
 // @route     POST api/users/register
 // @desc      Register User
