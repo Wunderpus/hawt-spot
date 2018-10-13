@@ -1,7 +1,13 @@
 import React from 'react';
 
+import SongQueryDisplay from './SongQueryDisplay.jsx';
+
 const SongsComponent = (props) => {
-  const { searchSongs, songField, updateSongField } = props;
+  const { saveSong, searchSongs, songField, songQueryResults, updateSongField } = props;
+  const songQueryArray = [];
+  if (songQueryResults.length) {
+    songQueryResults.forEach((songQueryResultDetail, i) => songQueryArray.push(<SongQueryDisplay key={i} saveSong={saveSong} songQueryResultDetail={songQueryResultDetail} />));
+  }
   return (
     <div>
       <div className="songs-header-container">
@@ -13,6 +19,7 @@ const SongsComponent = (props) => {
       </div>
       <div className="songs-list">
         <strong>Your Songs:</strong>
+        {songQueryArray}
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
 const client = require('../db');
+const bcrypt = require('bcryptjs');
+
 
 module.exports = {
   addUser: (req, res, next) => {
@@ -42,5 +44,22 @@ module.exports = {
         return next();
       })
       .catch(delErr => res.status(500).json({ message: 'Error: Could Not Delete User', error: delErr }));
+  },
+
+  findUser: (req, res, next) => {
+    const { accountEmail, accountPassword} = req.body;
+    const queryText = `SELECT * FROM users WHERE "email"=$1;`;
+    const queryArray = [accountEmail];
+    client.query(queryText, queryArray, (queryErr, queryResponse) => {
+      if (queryErr) {
+        return res.status(500).json({ message: 'Error: Problem Verifying User ', error: queryErr });
+      }
+      if (bcrypt.compareSync(accountPassword, queryResponse.rows[0].hash_pass)) {
+        res.locals.userVerification = true;
+        return next();
+      }
+      res.locals.userVerification = false;
+      return next();
+    });
   },
 };

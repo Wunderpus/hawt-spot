@@ -5,12 +5,13 @@ import SongsComponent from './SongsComponent.jsx';
 import FriendsComponent from './FriendsComponent.jsx';
 
 const Dashboard = (props) => {
-  const { searchSongs, songField, updateSongField } = props;
+  const { saveSong, searchSongs, songField, songQueryResults, updateSongField } = props;
+  console.log(saveSong);
   return (
     <div>
       <header>HAWT-SPOT DASHBOARD</header>
       <main>
-        <SongsComponent searchSongs={searchSongs} songField={songField} updateSongField={updateSongField} />
+        <SongsComponent saveSong={saveSong} searchSongs={searchSongs} songField={songField} songQueryResults={songQueryResults} updateSongField={updateSongField} />
         <FriendsComponent />
       </main>
     </div>

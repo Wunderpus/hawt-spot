@@ -23,7 +23,7 @@ app.post('/get-songs',
   songsController.getToken,
   songsController.getSongs,
   songsController.parseSongs,
-  (req, res) => res.status(200).json({}));
+  (req, res) => res.status(200).json(res.locals.songArr));
 
 // Use route for /users
 app.use('/users', users);

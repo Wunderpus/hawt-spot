@@ -9,12 +9,36 @@ class App extends Component {
     super();
     this.state = {
       isLoggedIn: false,
+      loggedInUser: '',
       songField: '',
-      songQuery: {},
+      songQueryResults: [],
     };
-    this.successfullLogin = this.successfullLogin.bind(this);
+    this.saveSong = this.saveSong.bind(this);
+    this.successfulLogin = this.successfulLogin.bind(this);
     this.searchSongs = this.searchSongs.bind(this);
+    this.updateLoggedInUser = this.updateLoggedInUser.bind(this);
     this.updateSongField = this.updateSongField.bind(this);
+  }
+
+  saveSong(title, artist, album, url) {
+    const { loggedInUser } = this.state;
+    const songData = {
+      user: loggedInUser,
+      title,
+      artist,
+      album,
+      url,
+    };
+    console.log(songData);
+    fetch('/users/save-song', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(songData),
+    })
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
   }
 
   searchSongs() {
@@ -26,24 +50,32 @@ class App extends Component {
       },
       body: JSON.stringify({ songName: songField }),
     })
-      .then(this.setState({ songField: '' }));
+      .then(data => data.json())
+      .then(data => this.setState({
+        songQueryResults: data,
+        songField: '',
+      }))
+      .catch(err => console.error(err));
   }
 
-  successfullLogin() {
-    const URI = `https://api.spotify.com/v1/search?q=immigrant&type=track&market=US`
+  successfulLogin() {
     this.setState({ ...this.state, isLoggedIn: true });
   }
 
+  updateLoggedInUser(firstName) {
+    this.setState({ ...this.state, loggedInUser: firstName })
+  }
+
   updateSongField(event) {
-    console.log(event.target.value);
     this.setState({ songField: event.target.value });
   }
 
   render() {
-    const { songField } = this.state;
-    let renderComponent = <Register successfullLogin={this.successfullLogin}/>;
-    if (this.state.isLoggedIn) {
-      renderComponent = <Dashboard searchSongs={this.searchSongs} songField={songField} updateSongField={this.updateSongField} />;
+    const { isLoggedIn, loggedInUser, songField, songQueryResults } = this.state;
+    let renderComponent = <Register updateLoggedInUser={this.updateLoggedInUser} successfulLogin={this.successfulLogin} />;
+    if (isLoggedIn) {
+      renderComponent = <Dashboard loggedInUser={loggedInUser} saveSong={this.saveSong} searchSongs={this.searchSongs} songField={songField} songQueryResults={songQueryResults} updateSongField={this.updateSongField} />;
+
     }
     return (
       <div>
