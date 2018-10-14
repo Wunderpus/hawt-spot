@@ -65,7 +65,7 @@ module.exports = {
   },
 
   saveSong: (req, res, next) => {
-    const { title, artist, album, url, userId } = req.body;
+    const { title, artist, album, url, user } = req.body;
     console.log("body ", req.body)
     const queryText = `INSERT INTO user_saved_songs ("title", "artist", "album", "url", "user") VALUES ($1, $2, $3, $4, $5);`;
     const queryValues = [
@@ -73,7 +73,7 @@ module.exports = {
       artist,
       album,
       url,
-      userId,
+      user,
     ];
     client.query(queryText, queryValues, (queryErr, queryResponse) => {
       if (queryErr) {
