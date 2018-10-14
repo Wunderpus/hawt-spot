@@ -18,6 +18,7 @@ const deleteUser = {
   email: 'jane@doe.com',
 };
 
+// Close database and server once testing is complete
 afterAll(async () => {
   server.close();
   await db.end();
@@ -28,6 +29,7 @@ afterAll(async () => {
   });
 });
 
+// Testing - Root Path
 describe('Server Test - GET /', () => {
   test('It should respond to GET method', (done) => {
     request(server).get('/').then((response) => {
@@ -43,6 +45,7 @@ describe('Server Test - GET /', () => {
   });
 });
 
+// Testing - User Routes / Test Path
 describe('Server Test - GET /users/test ', () => {
   test('It should respond to GET method', (done) => {
     request(server).get('/users/test').then((response) => {
@@ -64,6 +67,7 @@ describe('Server Test - GET /users/test ', () => {
   });
 });
 
+// Testing - User Routes / Registration Path
 describe('Server Test - POST /users/register', () => {
   test('It should respond to POST method with Status 200', (done) => {
     request(server).post('/users/register').then((response) => {
@@ -83,7 +87,7 @@ describe('Server Test - POST /users/register', () => {
       .send(testUser)
       .then((response) => {
         expect(response.statusCode).toBe(200);
-        expect(response.body).toEqual({});
+        expect(response.body).toEqual({ message: 'Welcome to HawtSpot!' });
         done();
       });
   });
@@ -99,6 +103,7 @@ describe('Server Test - POST /users/register', () => {
   });
 });
 
+// Testing - User Routes / Deletion Path
 describe('Server Test - DELETE /users/', () => {
   test('It should respond to DELETE method with Status 200', (done) => {
     request(server).delete('/users/')

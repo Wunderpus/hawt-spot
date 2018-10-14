@@ -12,12 +12,28 @@ class App extends Component {
       loggedInUser: '',
       songField: '',
       songQueryResults: [],
+      savedSongs: [],
     };
+    this.fetchSavedSongs = this.fetchSavedSongs.bind(this);
     this.saveSong = this.saveSong.bind(this);
     this.successfulLogin = this.successfulLogin.bind(this);
     this.searchSongs = this.searchSongs.bind(this);
     this.updateLoggedInUser = this.updateLoggedInUser.bind(this);
     this.updateSongField = this.updateSongField.bind(this);
+  }
+
+  fetchSavedSongs() {
+    const { loggedInUser } = this.state;
+    fetch('/users/find-saved-songs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify({ username: loggedInUser }),
+    })
+      .then(data => data.json())
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
   }
 
   saveSong(title, artist, album, url) {
@@ -37,7 +53,8 @@ class App extends Component {
       },
       body: JSON.stringify(songData),
     })
-      .then(data => console.log(data))
+      .then(data => this.setState({ songQueryResults: [] }))
+      .then(data => this.fetchSavedSongs())
       .catch(err => console.error(err));
   }
 
@@ -71,11 +88,13 @@ class App extends Component {
   }
 
   render() {
+    // Destructuring variables from state for rendering logic
     const { isLoggedIn, loggedInUser, songField, songQueryResults } = this.state;
+    // If !isLoggedIn, render Register component, passing in updateLoggedInUser successfulLogin handlers
     let renderComponent = <Register updateLoggedInUser={this.updateLoggedInUser} successfulLogin={this.successfulLogin} />;
     if (isLoggedIn) {
+      // If user is logged in, render Dashboard component, passing it saveSong, searchSongs and updateSongFields handlers
       renderComponent = <Dashboard loggedInUser={loggedInUser} saveSong={this.saveSong} searchSongs={this.searchSongs} songField={songField} songQueryResults={songQueryResults} updateSongField={this.updateSongField} />;
-
     }
     return (
       <div>
